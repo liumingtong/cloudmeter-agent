@@ -1,6 +1,9 @@
 package cloud_meter_agent.cloud_meter_agent;
 
 import com.thoughtworks.selenium.*;
+
+import cloud_meter_agent.cloud_meter_agent.model.constants.Constants;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

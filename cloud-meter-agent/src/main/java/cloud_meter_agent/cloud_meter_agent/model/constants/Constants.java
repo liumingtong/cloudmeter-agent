@@ -1,4 +1,4 @@
-package cloud_meter_agent.cloud_meter_agent;
+package cloud_meter_agent.cloud_meter_agent.model.constants;
 
 public interface Constants {
 	String WEBDRIVERPATH_CHROM_KEY="webdriver.chrome.driver";

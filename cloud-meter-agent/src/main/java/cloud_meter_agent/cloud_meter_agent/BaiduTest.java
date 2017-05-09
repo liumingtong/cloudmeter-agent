@@ -28,6 +28,9 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.google.common.graph.Network;
 
+import cloud_meter_agent.cloud_meter_agent.model.NetWorkInfo;
+import cloud_meter_agent.cloud_meter_agent.model.constants.Constants;
+import cloud_meter_agent.cloud_meter_agent.service.NetWorkService;
 import net.sf.json.JSONObject;
 
 public class BaiduTest {
@@ -38,8 +41,10 @@ public class BaiduTest {
 	private StringBuffer verificationErrors = new StringBuffer();
 	Logger logger = Logger.getLogger(BaiduTest.class);
 	static {
-		PropertyConfigurator.configure("E:\\home\\workspace\\cloud-meter-agent\\src\\main\\resources\\log4j.properties");
+		PropertyConfigurator
+				.configure("E:\\home\\workspace\\cloud-meter-agent\\src\\main\\resources\\log4j.properties");
 	}
+
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty(Constants.WEBDRIVERPATH_CHROM_KEY, Constants.WEBDRIVERPATH_CHROM_VALUE);
@@ -72,7 +77,7 @@ public class BaiduTest {
 		// ERROR: Caught exception [ERROR: Unsupported command [selectFrame | |
 		// ]]
 		// driver.findElement(By.id("request-menu-context-save-all-as-har")).click();
-		
+
 		analyzeLog();
 	}
 
@@ -85,50 +90,25 @@ public class BaiduTest {
 			fail(verificationErrorString);
 		}
 	}
-	
+
 	public void analyzeLog() {
-		try{
+		try {
 			List<NetWorkInfo> netWorkInfos = new ArrayList<NetWorkInfo>();
-			
+
 			LogEntries logEntries = driver.manage().logs().get(LogType.PERFORMANCE);
-			JSONObject jsonObj = null;
 			for (LogEntry entry : logEntries) {
-				logger.debug(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
-				
-				jsonObj = JSONObject.fromObject(entry.getMessage());
-				JSONObject messageObj = (JSONObject)jsonObj.get("message");
-				if(messageObj == null) {
-					continue;
+				// logger.debug(new Date(entry.getTimestamp()) + " " +
+				// entry.getLevel() + " " + entry.getMessage());
+				NetWorkInfo netWorkInfo = NetWorkService.getInstance().dealNetWorkInfo(entry.getMessage());
+				if(netWorkInfo != null) {
+					netWorkInfos.add(netWorkInfo);
 				}
-				JSONObject paramsObj = (JSONObject)messageObj.get("params");
-				if(paramsObj == null) {
-					continue;
-				}
-				JSONObject responseObj = (JSONObject)paramsObj.get("response");
-				if(responseObj == null) {
-					continue;
-				}
-				String methodObj = messageObj.get("method") == null ? "" : messageObj.get("method").toString();
-				String timestampObj = paramsObj.get("timestamp") == null ? "" : paramsObj.get("timestamp").toString();
-				String typeObj = paramsObj.get("type") == null ? "" : paramsObj.get("type").toString();
-				String requestId = paramsObj.get("requestId") == null ? "" : paramsObj.get("requestId").toString();
-				String urlObj = responseObj.get("url") == null ? "" : responseObj.get("url").toString();
-				String statusObj = responseObj.get("status") == null ? "" : responseObj.get("status").toString();
-				
-				Long dataLength = null;
-				
-				NetWorkInfo netWorkInfo = new NetWorkInfo(requestId, methodObj, timestampObj, typeObj, urlObj, statusObj, dataLength);
-				netWorkInfos.add(netWorkInfo);
-				//logger.debug(new Date(entry.getTimestamp()) + " " + entry.getLevel() + " " + entry.getMessage());
-				//logger.debug("========================" + url);
-				// do something useful with the data
 			}
-			
-			
-		} catch(Error error) {
-			logger.debug("=======error:"+error);
-		} catch(Exception exception) {
-			logger.debug("=======exception:"+exception);
+
+		} catch (Error error) {
+			logger.debug("=======error:" + error);
+		} catch (Exception exception) {
+			logger.debug("=======exception:" + exception);
 		}
 	}
 
