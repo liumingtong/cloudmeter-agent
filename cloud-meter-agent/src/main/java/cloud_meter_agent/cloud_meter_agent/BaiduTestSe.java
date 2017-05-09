@@ -1,14 +1,13 @@
 package cloud_meter_agent.cloud_meter_agent;
 
-import com.thoughtworks.selenium.*;
-
-import cloud_meter_agent.cloud_meter_agent.model.constants.Constants;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import java.util.regex.Pattern;
+
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
+
+import cloud_meter_agent.cloud_meter_agent.constants.Constants;
 
 public class BaiduTestSe {
 	private Selenium selenium;

@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 
-import cloud_meter_agent.cloud_meter_agent.model.constants.Constants;
+import cloud_meter_agent.cloud_meter_agent.constants.Constants;
+
 
 public class WebTest {
 

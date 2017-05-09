@@ -1,7 +1,7 @@
 package cloud_meter_agent.cloud_meter_agent.service;
 
+import cloud_meter_agent.cloud_meter_agent.constants.NetWorkConstants;
 import cloud_meter_agent.cloud_meter_agent.model.NetWorkInfo;
-import cloud_meter_agent.cloud_meter_agent.model.constants.NetWorkConstants;
 import net.sf.json.JSONObject;
 
 /**
