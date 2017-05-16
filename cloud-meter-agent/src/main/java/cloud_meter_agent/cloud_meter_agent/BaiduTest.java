@@ -23,6 +23,10 @@ import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cloud_meter_agent.cloud_meter_agent.constants.Constants;
+<<<<<<< HEAD
+=======
+import cloud_meter_agent.cloud_meter_agent.service.BrowserTestService;
+>>>>>>> refs/remotes/origin/master
 
 public class BaiduTest {
 	private WebDriver driver;
@@ -85,7 +89,11 @@ public class BaiduTest {
 	public void analyzeLog() {
 		LogEntries logEntries = driver.manage().logs().get("har");
 		for (LogEntry entry : logEntries) {
+<<<<<<< HEAD
 			logger.debug(entry.getMessage());
+=======
+			BrowserTestService.getInstance().generateHarSummary(entry.getMessage());
+>>>>>>> refs/remotes/origin/master
 		}
 	}
 
