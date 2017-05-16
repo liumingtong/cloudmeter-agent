@@ -4,9 +4,6 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -18,20 +15,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import cloud_meter_agent.cloud_meter_agent.constants.Constants;
-import cloud_meter_agent.cloud_meter_agent.model.NetWorkInfo;
-import cloud_meter_agent.cloud_meter_agent.service.NetWorkService;
 
 public class BaiduTest {
 	private WebDriver driver;
@@ -42,7 +33,7 @@ public class BaiduTest {
 	Logger logger = Logger.getLogger(BaiduTest.class);
 	static {
 		PropertyConfigurator.configure(
-				"E:\\home\\git\\cloudmeter-agent\\cloud-meter-agent\\src\\main\\resources\\log4j.properties");
+				"E:\\home\\git\\cloudmeter\\cloudmeter-agent\\cloud-meter-agent\\src\\main\\resources\\log4j.properties");
 	}
 
 	@Before
@@ -92,16 +83,9 @@ public class BaiduTest {
 	}
 
 	public void analyzeLog() {
-		try {
-			LogEntries logEntries = driver.manage().logs().get("har");
-			for (LogEntry entry : logEntries) {
-				logger.debug("====" + entry.getMessage());
-			}
-
-		} catch (Error error) {
-			logger.debug("=======error:" + error);
-		} catch (Exception exception) {
-			logger.debug("=======exception:" + exception);
+		LogEntries logEntries = driver.manage().logs().get("har");
+		for (LogEntry entry : logEntries) {
+			logger.debug(entry.getMessage());
 		}
 	}
 
